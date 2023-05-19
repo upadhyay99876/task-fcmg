@@ -12,4 +12,6 @@ router.delete('/:userId', userController.deleteUser);
 
 router.get("/data", verifyUser, userController.data);
 
+
+
 module.exports = router;
