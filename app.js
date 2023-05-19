@@ -1,15 +1,14 @@
 const express = require("express");
 const app = express();
-require('./database/db')
+require('./db/db')
 const bodyParser = require("body-parser");
 const swaggerUi = require("swagger-ui-express");
 const cors = require("cors");
 const port = process.env.PORT || 3000;
-const categoryRoute = require("./routes/cateRoute");
-const productRoute = require("./routes/prodRoute");
-const cartRoute = require("./routes/cartRoute");
-const adminRoute = require("./routes/adminRoute");
-const userRoute = require("./routes/userRoute");
+const categoryRoute = require("./routes/category_routes");
+const productRoute = require("./routes/product_routes");
+const cartRoute = require("./routes/cart_routes");
+const userRoute = require("./routes/user_routes");
 const swaggerDocument = require("./swagger.json");
 
 // Use body parser middleware to parse body of incoming requests
@@ -23,13 +22,9 @@ app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument)); //still wor
 app.use("/product", productRoute);
 app.use("/category", categoryRoute);
 app.use("/cart", cartRoute);
-app.use("/admin", adminRoute);
 app.use("/user", userRoute);
-// Handle Error Requests
 
-app.get("/", (req, res) => {
-  res.send('API IS NOW WORKING, append "/docs" to the current url to access API documentation');
-});
+
 
 // Handle Error Requests
 app.use((req, res, next) => {
