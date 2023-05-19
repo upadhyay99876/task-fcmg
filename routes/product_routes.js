@@ -12,7 +12,7 @@ const storage = multer.diskStorage({
     cb(null, `${Date.now()}.${ext}`);
   },
 });
-
+/******UPLOADED FILE SHOULD BE JPEG AND PNG TYPE */
 const fileFilter = (req, file, cb) => {
   if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
     cb(null, true);

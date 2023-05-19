@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Routes which should handle requests
-app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument)); //still working on it
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument)); 
 app.use("/product", productRoute);
 app.use("/category", categoryRoute);
 app.use("/cart", cartRoute);
@@ -26,7 +26,7 @@ app.use("/user", userRoute);
 
 
 
-// Handle Error Requests
+// Handle Error Requests just like global error handler
 app.use((req, res, next) => {
   const error = new Error();
   error.message = "Not Found";

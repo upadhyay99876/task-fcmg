@@ -12,7 +12,9 @@ const cateSchema = mongoose.Schema(
 
     }
   },
-  { timestamps: true } //to include createdAt and updatedAt
+  { timestamps: true } 
+    /********TIMESTAMPS IS USED TO UPDATE CREATED AND UPDATE AT */
+
 );
 
 module.exports = mongoose.model("Category", cateSchema);

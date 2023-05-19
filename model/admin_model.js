@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const userSchema = new mongoose.Schema(
+const adminSchema = new mongoose.Schema(
   {
     firstName: {
       type: String,
@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema(
       required: true,
     },
   },
-  { timestamps: true }
-  /********TIMESTAMPS IS USED TO UPDATE CREATED AND UPDATE AT */
+  { timestamps: true } //to include createdAt and updatedAt
 );
-module.exports = mongoose.model("User", userSchema);
+
+module.exports = mongoose.model("Admin", adminSchema);

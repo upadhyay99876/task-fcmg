@@ -6,18 +6,17 @@ const User = require("../model/user_model");
 const { registerValidation, loginValidation } = require("../middleware/validation");
 
 
-// signup
+// user created 
 exports.signUp = async (req, res, next) => {
   const { error, value } = registerValidation(req.body);
   if (error) return res.json(error.details[0].message);
-
-  const emailExist = await User.findOne({ email: req.body.email }); //returns the first document that matches the query criteria or null
+//***CHECK IF EMAIL EXISTS */
+  const emailExist = await User.findOne({ email: req.body.email }); 
   if (emailExist) return res.json({ message: "Email already exist!" });
 
   try {
     const newUser = await createUserObj(req);
     const savedUser = await User.create(newUser);
-    // return res.status(200).send({ message: "User created successfully!", user: savedUser });
     return res.json({
       status: 200,
       message: "User created successfully",
@@ -36,7 +35,6 @@ exports.signUp = async (req, res, next) => {
 exports.logIn = async (req, res) => {
   const { error } = loginValidation(req.body);
   if (error)
-    // return res.json(error.details[0].message);
     return res.json({
       status: 400,
       message: error.details[0].message,
@@ -44,7 +42,7 @@ exports.logIn = async (req, res) => {
 
 
 
-  const foundUser = await User.findOne({ email: req.body.email }); //returns the first document that matches the query criteria or null
+  const foundUser = await User.findOne({ email: req.body.email });
   if (!foundUser)
     return res.json({
       status: 400,
@@ -73,7 +71,7 @@ exports.logIn = async (req, res) => {
   }
 };
 
-// Update user
+/***********UPDATE USER USING TOKEN */
 exports.updateUser = async (req, res) => {
   try {
     req.body.password = bcrypt.hashSync(req.body.password, 10); //encrypt the password before updating
@@ -92,8 +90,7 @@ exports.updateUser = async (req, res) => {
 // Delete user
 exports.deleteUser = async (req, res) => {
   try {
-    const deletedUser = await User.findByIdAndDelete(req.params.userId); // the `await` is very important here!
-
+    const deletedUser = await User.findByIdAndDelete(req.params.userId); 
     if (!deletedUser) {
       return res.json({ message: "Could not delete user",status:400 });
     }
